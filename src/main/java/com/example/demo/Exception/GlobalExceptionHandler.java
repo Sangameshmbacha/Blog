@@ -14,7 +14,7 @@ import java.util.Map;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    // ✅ Blog not found exception
+ 
     @ExceptionHandler(BlogNotFoundException.class)
     public ResponseEntity<Map<String, Object>> handleBlogNotFound(BlogNotFoundException ex) {
         Map<String, Object> error = new HashMap<>();
@@ -25,7 +25,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
-    // ✅ Catch-all for other exceptions
+ 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, Object>> handleGlobal(Exception ex) {
         Map<String, Object> error = new HashMap<>();
