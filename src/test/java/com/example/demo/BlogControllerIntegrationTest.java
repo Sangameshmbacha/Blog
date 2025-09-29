@@ -15,7 +15,7 @@ import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@SpringBootTest // loads full application context
+@SpringBootTest 
 @AutoConfigureMockMvc
 class BlogControllerIntegrationTest {
 
@@ -27,7 +27,7 @@ class BlogControllerIntegrationTest {
 
     @BeforeEach
     void setUp() {
-        blogsRepository.deleteAll(); // clean DB before each test
+        blogsRepository.deleteAll(); 
     }
 
     @Test
