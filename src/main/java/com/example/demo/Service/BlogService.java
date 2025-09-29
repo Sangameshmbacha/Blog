@@ -18,12 +18,12 @@ public class BlogService {
         this.blogRepository = blogRepository;
     }
 
-    // Get all blogs
+
     public List<Blogs> getAllBlogs() {
         return blogRepository.findAll();
     }
 
-    // Add a blog
+ 
     public Blogs addBlog(Blogs blog) {
         return blogRepository.save(blog);
     }
