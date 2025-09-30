@@ -1,6 +1,7 @@
 package com.example.demo.Service;
 
 import com.example.demo.repository.BlogsRepository;
+import com.example.demo.Exception.BlogNotFoundException;
 import com.example.demo.model.Blogs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,8 +30,10 @@ public class BlogService {
     }
 
    
-    public Optional<Blogs> getBlogById(Long id) {
-        return blogRepository.findById(id);
+    public Blogs getBlogById(Long id) {
+        Blogs blog =  blogRepository.findById(id)
+        		.orElseThrow(()->new BlogNotFoundException("blog not found with the given id " + id));
+    return blog;
     }
 
     

@@ -4,9 +4,6 @@ import com.example.demo.Service.BlogService;
 import com.example.demo.model.Blogs;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,14 +28,21 @@ public class BlogController {
         return blogService.getAllBlogs();
     }
 
-    @GetMapping("/{id}")
-    @Operation(summary = "Get blog by ID", description = "Fetches a single blog using its ID")
-    public ResponseEntity<Blogs> getBlogById(@PathVariable("id") Long id) {
-        Optional<Blogs> blog = blogService.getBlogById(id);
-        return blog.map(ResponseEntity::ok)
-                   .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
-    }
+//    @GetMapping("/{id}")
+//    @Operation(summary = "Get blog by ID", description = "Fetches a single blog using its ID")
+//    public ResponseEntity<Blogs> getBlogById(@PathVariable("id") Long id) {
+//        Optional<Blogs> blog = blogService.getBlogById(id);
+//        return blog.map(ResponseEntity::ok)
+//                   .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+//    }
 
+  @GetMapping("/{id}")
+  @Operation(summary = "Get blog by ID", description = "Fetches a single blog using its ID")
+  public Blogs getBlogById(@PathVariable("id") Long id) {
+      Blogs blog = blogService.getBlogById(id);
+      return blog;
+  }
+    
     @PostMapping
     @Operation(summary = "Add a new blog", description = "Creates and returns the newly added blog")
     public ResponseEntity<Blogs> addBlog(@RequestBody Blogs blog) {

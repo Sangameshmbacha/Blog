@@ -2,8 +2,11 @@ package com.example.demo;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+
+import ch.qos.logback.core.joran.spi.HttpUtil.RequestMethod;
 
 @Configuration
 public class SecurityConfig {
@@ -21,10 +24,10 @@ public class SecurityConfig {
                         "/swagger-ui.html",
                         "/swagger-ui/**",
                         "/v3/api-docs/**"
-                ).permitAll()
+                ).authenticated()
 
                 // Allow Blog endpoints without authentication (for testing)
-                .requestMatchers("/blogs/**").permitAll()
+                .requestMatchers(HttpMethod.GET,"/blogs/**").permitAll()
 
                 // All other requests require authentication
                 .anyRequest().authenticated()
