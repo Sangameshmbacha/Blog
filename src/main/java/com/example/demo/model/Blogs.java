@@ -17,10 +17,10 @@ public class Blogs {
     private String title;
     private String content;
 
-    // Default constructor (required by JPA)
+
     public Blogs() {}
 
-    // Parameterized constructor
+ 
     public Blogs(String title, String content) {
         this.title = title;
         this.content = content;

@@ -6,37 +6,33 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
-import ch.qos.logback.core.joran.spi.HttpUtil.RequestMethod;
-
 @Configuration
 public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            // Disable CSRF for APIs
             .csrf(csrf -> csrf.disable())
 
-            // Authorize requests
             .authorizeHttpRequests(auth -> auth
-                // Allow Swagger and API docs
+                // Swagger docs require authentication (change to permitAll() if you want them public)
                 .requestMatchers(
-                        "/swagger-ui.html",
-                        "/swagger-ui/**",
-                        "/v3/api-docs/**"
+                    "/swagger-ui.html",
+                    "/swagger-ui/**",
+                    "/v3/api-docs/**"
                 ).authenticated()
 
-                // Allow Blog endpoints without authentication (for testing)
-                .requestMatchers(HttpMethod.GET,"/blogs/**").permitAll()
+                // Allow only GET requests to /blogs/** without authentication
+                .requestMatchers(HttpMethod.GET, "/blogs/**").permitAll()
 
                 // All other requests require authentication
                 .anyRequest().authenticated()
             )
 
-            // OAuth2 Login (if needed for other endpoints)
+            // Enable OAuth2 login (e.g., Google login)
             .oauth2Login()
-            
-            // Enable JWT Resource Server
+
+            // Enable JWT support
             .and()
             .oauth2ResourceServer(oauth2 -> oauth2.jwt());
 
